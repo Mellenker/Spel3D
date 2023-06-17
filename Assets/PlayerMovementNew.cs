@@ -5,24 +5,25 @@ using UnityEngine;
 public class PlayerMovementNew : MonoBehaviour
 {
     [Header("Movement")]
-    public float moveSpeed;
+    [SerializeField] private float moveSpeed;
 
-    public float groundDrag;
+    [SerializeField] private float groundDrag;
 
-    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpCooldown;
+    [SerializeField] private float airMultiplier;
     bool readytoJump;
 
     [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
     [Header("Ground check")]
-    public float playerHeight;
-    public LayerMask Ground;
+    [SerializeField] private float playerHeight;
+    [SerializeField] private LayerMask ground;
     bool grounded;
 
-    public Transform orientation;
+    [SerializeField] private Transform orientation;
+    [SerializeField] private Transform groundCheck;
 
     float horizontalInput;
     float verticalInput;
@@ -39,14 +40,12 @@ public class PlayerMovementNew : MonoBehaviour
 
     private void Update()
     {
-       // Ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
 
         MyInput();
         SpeedControl();
 
        // Handle drag
-        if (grounded)
+        if (IsGrounded())
             rb.drag = groundDrag;
         else
             rb.drag = 0;
@@ -62,7 +61,7 @@ public class PlayerMovementNew : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(jumpKey) && readytoJump && grounded)
+        if (Input.GetKey(jumpKey) && readytoJump && IsGrounded())
         {
             readytoJump = false;
             Jump();
@@ -105,6 +104,12 @@ public class PlayerMovementNew : MonoBehaviour
     private void ResetJump()
     {
         readytoJump = true;
+    }
+
+    
+    bool IsGrounded()
+    {
+        return Physics.CheckSphere(groundCheck.position, .1f, ground);
     }
 }
 
