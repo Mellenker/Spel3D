@@ -512,8 +512,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5090543682655619122, guid: ac13f4a50e9594e4dba77551b1e20830, type: 3}
+      propertyPath: jumpForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5090543682655619122, guid: ac13f4a50e9594e4dba77551b1e20830, type: 3}
       propertyPath: moveSpeed
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6366383883055539673, guid: ac13f4a50e9594e4dba77551b1e20830, type: 3}
       propertyPath: m_Name
@@ -529,15 +533,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7527224940919264329, guid: ac13f4a50e9594e4dba77551b1e20830, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.2
+      value: 25.67
       objectReference: {fileID: 0}
     - target: {fileID: 7527224940919264329, guid: ac13f4a50e9594e4dba77551b1e20830, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 102.51
+      value: 109.08
       objectReference: {fileID: 0}
     - target: {fileID: 7527224940919264329, guid: ac13f4a50e9594e4dba77551b1e20830, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.2
+      value: 37.46
       objectReference: {fileID: 0}
     - target: {fileID: 7527224940919264329, guid: ac13f4a50e9594e4dba77551b1e20830, type: 3}
       propertyPath: m_LocalRotation.w
