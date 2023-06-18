@@ -17,10 +17,7 @@ public class PlayerMovementNew : MonoBehaviour
     [Header("Keybinds")]
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
-    [Header("Ground check")]
-    [SerializeField] private float playerHeight;
     [SerializeField] private LayerMask ground;
-    bool grounded;
 
     [SerializeField] private Transform orientation;
     [SerializeField] private Transform groundCheck;
@@ -75,11 +72,11 @@ public class PlayerMovementNew : MonoBehaviour
         rb.AddForce(moveDirection.normalized * moveSpeed * 10);
 
         // On ground
-        if (grounded)
+        if (IsGrounded())
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
         // In air
-        else if(!grounded)
+        else if(!IsGrounded())
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
     }
 
