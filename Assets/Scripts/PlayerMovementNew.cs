@@ -6,6 +6,9 @@ public class PlayerMovementNew : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float sprintMultiplier;
+    private float sprintSpeed;
+    private float defaultSpeed;
 
     [SerializeField] private float groundDrag;
 
@@ -16,8 +19,9 @@ public class PlayerMovementNew : MonoBehaviour
 
     [Header("Keybinds")]
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
 
-    [SerializeField] private LayerMask ground;
+    [SerializeField] private LayerMask groundLayer;
 
     [SerializeField] private Transform orientation;
     [SerializeField] private Transform groundCheck;
@@ -33,11 +37,12 @@ public class PlayerMovementNew : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation= true;
         readytoJump = true;
+        defaultSpeed = moveSpeed;
+        sprintSpeed = moveSpeed * sprintMultiplier;
     }
 
     private void Update()
     {
-
         MyInput();
         SpeedControl();
 
@@ -64,6 +69,18 @@ public class PlayerMovementNew : MonoBehaviour
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
+
+        
+        if (Input.GetKey(sprintKey))
+        {
+            moveSpeed = sprintSpeed;
+        }
+
+        else
+        {
+            moveSpeed = defaultSpeed;
+        }
+
     }
 
     private void MovePlayer()
@@ -106,7 +123,7 @@ public class PlayerMovementNew : MonoBehaviour
     
     bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, .1f, ground);
+        return Physics.CheckSphere(groundCheck.position, .1f, groundLayer);
     }
 }
 
