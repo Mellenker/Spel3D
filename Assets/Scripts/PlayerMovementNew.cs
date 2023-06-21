@@ -17,9 +17,9 @@ public class PlayerMovementNew : MonoBehaviour
     [SerializeField] private float airMultiplier;
     bool readytoJump;
 
-    [Header("Keybinds")]
-    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
-    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] private PlayerControls controls;
+    private KeyCode jumpKey;
+    private KeyCode sprintKey;
 
     [SerializeField] private LayerMask groundLayer;
 
@@ -37,8 +37,13 @@ public class PlayerMovementNew : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation= true;
         readytoJump = true;
+
         defaultSpeed = moveSpeed;
         sprintSpeed = moveSpeed * sprintMultiplier;
+
+        jumpKey = controls.getJumpKey();
+        sprintKey = controls.getSprintKey();
+
     }
 
     private void Update()
@@ -90,11 +95,18 @@ public class PlayerMovementNew : MonoBehaviour
 
         // On ground
         if (IsGrounded())
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        }
+            
 
         // In air
         else if(!IsGrounded())
+        {
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        }
+            
     }
 
     private void SpeedControl()
@@ -124,6 +136,16 @@ public class PlayerMovementNew : MonoBehaviour
     bool IsGrounded()
     {
         return Physics.CheckSphere(groundCheck.position, .1f, groundLayer);
+    }
+
+    public KeyCode getJumpKey()
+    {
+        return jumpKey;
+    }
+
+    public KeyCode getSprintKey()
+    {
+        return sprintKey;
     }
 }
 
