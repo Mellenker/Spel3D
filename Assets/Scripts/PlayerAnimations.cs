@@ -20,7 +20,7 @@ public class PlayerAnimations : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+        if (Input.GetAxis("Horizontal") > .1f || Input.GetAxis("Vertical") > .1f)
         {
 
             if (Input.GetKey(sprintKey))
